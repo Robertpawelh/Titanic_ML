@@ -1,6 +1,3 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 from data_preparation import *
 from decision_tree import *
 from submissions import prepare_solution

@@ -1,7 +1,6 @@
 import math
 import pandas as pd
 from collections import Counter, defaultdict
-import numpy as np
 
 
 class Leaf:
@@ -20,7 +19,7 @@ class DecisionTree:
     def entropy(self, class_probabilities):
         sum = 0
         for p in class_probabilities:
-            if p>0:
+            if p > 0:
                 sum += -p * math.log(p, 2)
         return sum
 
@@ -32,15 +31,15 @@ class DecisionTree:
         return sum(self.entropy(self.class_probabilities(subset)) * len(subset) / total_count
                    for subset in subsets)
 
-    def make_partitions(self, inputs, attribute: str):
+    def make_partitions(self, inputs, attribute):
         partitions = defaultdict(list)
         for id, row in inputs.iterrows():
             key = row[attribute]
             partitions[key].append(row)
         return partitions
 
-    def partition_entropy_by(self, x_train, attribute: str, label_attribute):
-        partitions = self.make_partitions(x_train, attribute)
+    def partition_entropy_by(self, inputs, attribute, label_attribute):
+        partitions = self.make_partitions(inputs, attribute)
         labels = [[x[label_attribute] for x in partition]
                   for partition in partitions.values()]
         return self.partition_entropy(labels)
